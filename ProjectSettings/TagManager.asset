@@ -52,5 +52,8 @@ TagManager:
   - name: Ingredientes
     uniqueID: 4279349771
     locked: 0
+  - name: Ensalada
+    uniqueID: 3854129153
+    locked: 0
   m_RenderingLayers:
   - Default

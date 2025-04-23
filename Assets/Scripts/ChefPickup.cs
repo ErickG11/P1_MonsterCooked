@@ -1,56 +1,75 @@
 using UnityEngine;
 
-public class Chef : MonoBehaviour
+public class ChefPickup : MonoBehaviour
 {
-    public Transform ingredienteFuente; 
-    public Transform lugarIngredienteEnMano; 
+    public Transform ingredienteEnMano;
+    private GameObject ingredienteActual;
 
-    private GameObject ingredienteActual; // El ingrediente que lleva el chef.
-    private bool tieneIngrediente = false;
+    public PedidoManager pedidoManager; // Asignar en el Inspector
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (!tieneIngrediente && ingredienteFuente != null)
+            if (ingredienteActual == null)
             {
                 CogerIngrediente();
             }
-            else if (tieneIngrediente)
+            else
             {
-                DejarIngrediente();
+                SoltarIngrediente();
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R) && ingredienteActual != null)
+        {
+            string nombreEntregado = ingredienteActual.name.Replace("(Clone)", "").Trim().ToLower();
+
+            if (nombreEntregado.Contains("tomate"))
+                pedidoManager.VerificarPedido("Tomate");
+            else if (nombreEntregado.Contains("lechuga"))
+                pedidoManager.VerificarPedido("Lechuga");
+            else if (nombreEntregado.Contains("ensalada"))
+                pedidoManager.VerificarPedido("Ensalada");
+
+            Destroy(ingredienteActual);
+            ingredienteActual = null;
         }
     }
 
     void CogerIngrediente()
     {
-        ingredienteActual = Instantiate(ingredienteFuente.gameObject, lugarIngredienteEnMano.position, Quaternion.identity);
-        ingredienteActual.transform.SetParent(lugarIngredienteEnMano); // Hacemos hijo para que se mueva con el chef
-        tieneIngrediente = true;
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1.5f);
+
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.CompareTag("Ingrediente"))
+            {
+                GameObject seleccionado = hit.gameObject;
+
+                if (!seleccionado.name.Contains("(Clone)"))
+                {
+                    GameObject clone = Instantiate(seleccionado);
+                    clone.transform.position = ingredienteEnMano.position;
+                    clone.transform.SetParent(ingredienteEnMano);
+                    ingredienteActual = clone;
+                }
+                else
+                {
+                    seleccionado.transform.position = ingredienteEnMano.position;
+                    seleccionado.transform.SetParent(ingredienteEnMano);
+                    ingredienteActual = seleccionado;
+                }
+
+                break;
+            }
+        }
     }
 
-    void DejarIngrediente()
+    void SoltarIngrediente()
     {
-        ingredienteActual.transform.SetParent(null); 
-        ingredienteActual.transform.position = new Vector3(transform.position.x, -8.6f, 0); // Lo deja justo en el Y deseado, y en su X actual
+        ingredienteActual.transform.SetParent(null);
+        ingredienteActual.transform.position = new Vector3(transform.position.x, -8.6f, 0);
         ingredienteActual = null;
-        tieneIngrediente = false;
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Ingrediente"))
-        {
-            ingredienteFuente = other.transform;
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Ingrediente") && other.transform == ingredienteFuente)
-        {
-            ingredienteFuente = null;
-        }
     }
 }
