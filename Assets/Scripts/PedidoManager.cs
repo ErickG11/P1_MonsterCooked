@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
-using TMPro; // Importante para usar TextMeshPro
+using TMPro; 
 using System.Collections;
 
 public class PedidoManager : MonoBehaviour
 {
-    public TextMeshProUGUI textoPedido; // Asegúrate de asignar el TextMeshProUGUI en el Inspector
+    public TextMeshProUGUI textoPedido; 
     public float tiempoEntrePedidos = 10f;
 
     private string pedidoActual = "";
@@ -43,11 +43,11 @@ public class PedidoManager : MonoBehaviour
             Debug.Log("✅ Entregaste una lechuga: +5 puntos");
         }
 
-        // Aquí puedes poner una verificación si llegó a 100 para pasar de nivel
+       
         if (ScoreManager.Instance.ObtenerScore() >= 100)
         {
             Debug.Log("🎉 ¡Nivel completado!");
-            // Puedes cargar otra escena o mostrar mensaje de victoria
+            
         }
     }
 

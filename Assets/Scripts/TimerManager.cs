@@ -1,15 +1,17 @@
-using TMPro; // Asegúrate de importar el espacio de nombres de TextMeshPro
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class TimerManager : MonoBehaviour
 {
-    public float tiempoTotal = 300f; // 5 minutos = 300 segundos
+    public float tiempoTotal = 300f;
     private float tiempoRestante;
-    public TextMeshProUGUI textoTiempo; // Cambié esto a TextMeshProUGUI
+    public TextMeshProUGUI textoTiempo;
 
     private bool tiempoTerminado = false;
+    public int puntuacionMinima = 70;       // mínimo para superar
+    public string escenaNivelSuperado = "PantallaNextLevel";
+    public string escenaGameOver = "GameOver";
 
     void Start()
     {
@@ -18,32 +20,40 @@ public class TimerManager : MonoBehaviour
 
     void Update()
     {
-        if (!tiempoTerminado)
+        if (tiempoTerminado) return;
+
+        tiempoRestante -= Time.deltaTime;
+        if (tiempoRestante <= 0f)
         {
-            tiempoRestante -= Time.deltaTime;
-
-            if (tiempoRestante <= 0)
-            {
-                tiempoRestante = 0;
-                tiempoTerminado = true;
-                FinDelTiempo();
-            }
-
-            ActualizarTextoTiempo();
+            tiempoRestante = 0f;
+            tiempoTerminado = true;
+            FinDelTiempo();
         }
+        ActualizarTextoTiempo();
     }
 
     void ActualizarTextoTiempo()
     {
-        int minutos = Mathf.FloorToInt(tiempoRestante / 60);
-        int segundos = Mathf.FloorToInt(tiempoRestante % 60);
-        textoTiempo.text = string.Format("Tiempo restante: {0:00}:{1:00}", minutos, segundos);
+        int min = Mathf.FloorToInt(tiempoRestante / 60f);
+        int sec = Mathf.FloorToInt(tiempoRestante % 60f);
+        textoTiempo.text = $"Tiempo: {min:00}:{sec:00}";
     }
 
     void FinDelTiempo()
     {
-        // Aquí puedes cambiar de escena, mostrar panel, etc.
-        Debug.Log("¡Tiempo terminado!");
-        // SceneManager.LoadScene("GameOverScene"); // Si quieres cargar otra escena
+        string nivelActual = SceneManager.GetActiveScene().name;
+        PlayerPrefs.SetString("LastLevelName", nivelActual);
+        PlayerPrefs.Save();
+
+        int finalScore = ScoreManager.Instance.ObtenerScore();
+        PlayerPrefs.SetInt("LastScore", finalScore);
+        PlayerPrefs.Save();
+
+        int score = ScoreManager.Instance.ObtenerScore();
+        if (score >= puntuacionMinima)
+            SceneManager.LoadScene(escenaNivelSuperado);
+        else
+            SceneManager.LoadScene(escenaGameOver);
     }
 }
+
