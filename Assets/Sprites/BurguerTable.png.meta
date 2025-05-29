@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-guid: 519674774893d8549b0feabc88248b8c
+guid: 3d622c4bf62fc9c4bb2bea0883d2c08a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5949700090153909220
-    second: "fondo animado para un juego similar a Overcooked pero con tem\xE1tica
-      de monstruos, estilo inframundo, dise\xF1o perfecto (1)_0"
+      213: 6379395186711483933
+    second: BurguerTable_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -97,31 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "fondo animado para un juego similar a Overcooked pero con tem\xE1tica
-        de monstruos, estilo inframundo, dise\xF1o perfecto (1)_0"
+      name: BurguerTable_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1024
-        height: 1024
+        x: 47
+        y: 109
+        width: 521
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c1444467a4b6e6da0800000000000000
-      internalID: -5949700090153909220
+      spriteID: d1656c17f1a288850800000000000000
+      internalID: 6379395186711483933
       vertices: []
       indices: 
       edges: []
@@ -149,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      "fondo animado para un juego similar a Overcooked pero con tem\xE1tica de monstruos, estilo inframundo, dise\xF1o perfecto (1)_0": -5949700090153909220
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

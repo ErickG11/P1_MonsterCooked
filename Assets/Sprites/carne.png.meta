@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-guid: 519674774893d8549b0feabc88248b8c
+guid: 9c6f7f2dca1fe2840b7b80d0fddae29c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5949700090153909220
-    second: "fondo animado para un juego similar a Overcooked pero con tem\xE1tica
-      de monstruos, estilo inframundo, dise\xF1o perfecto (1)_0"
+      213: 2921932638756624789
+    second: carne_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -97,25 +96,11 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "fondo animado para un juego similar a Overcooked pero con tem\xE1tica
-        de monstruos, estilo inframundo, dise\xF1o perfecto (1)_0"
+      name: carne_0
       rect:
         serializedVersion: 2
         x: 0
@@ -130,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c1444467a4b6e6da0800000000000000
-      internalID: -5949700090153909220
+      spriteID: 59955bef04acc8820800000000000000
+      internalID: 2921932638756624789
       vertices: []
       indices: 
       edges: []
@@ -150,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "fondo animado para un juego similar a Overcooked pero con tem\xE1tica de monstruos, estilo inframundo, dise\xF1o perfecto (1)_0": -5949700090153909220
+      carne_0: 2921932638756624789
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

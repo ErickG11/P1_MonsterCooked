@@ -1,37 +1,44 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ChefPickup : MonoBehaviour
 {
     public Transform ingredienteEnMano;
     private GameObject ingredienteActual;
 
-    public PedidoManager pedidoManager; // Asignar en el Inspector
+    public PedidoManager pedidoManager; // Arrástralo en el Inspector
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (ingredienteActual == null)
-            {
-                CogerIngrediente();
-            }
-            else
-            {
-                SoltarIngrediente();
-            }
+            if (ingredienteActual == null) CogerIngrediente();
+            else SoltarIngrediente();
         }
 
         if (Input.GetKeyDown(KeyCode.R) && ingredienteActual != null)
         {
-            string nombreEntregado = ingredienteActual.name.Replace("(Clone)", "").Trim().ToLower();
+            // Nombre limpio de lo que tenemos en la mano
+            string entregado = ingredienteActual.name
+                .Replace("(Clone)", "").Trim();
 
-            if (nombreEntregado.Contains("tomate"))
-                pedidoManager.VerificarPedido("Tomate");
-            else if (nombreEntregado.Contains("lechuga"))
-                pedidoManager.VerificarPedido("Lechuga");
-            else if (nombreEntregado.Contains("ensalada"))
-                pedidoManager.VerificarPedido("Ensalada");
+            // Pedido activo desde PedidoManager
+            string pedido = pedidoManager.ObtenerPedidoActual();
 
+            // Solo sumamos si coincide exactamente el nombre
+            if (entregado.Equals(pedido, System.StringComparison.OrdinalIgnoreCase))
+            {
+                pedidoManager.VerificarPedido(pedido);
+                // Aquí podrías reproducir un sonido o animación de acierto
+            }
+            else
+            {
+                // Entrega incorrecta: no sumamos y podemos resetear indicador de pedido
+                // (Opcional) pedidoManager.ResetPedido(); 
+                // No hay logs ni cambio de escena
+            }
+
+            // Siempre destruimos lo que estaba en la mano
             Destroy(ingredienteActual);
             ingredienteActual = null;
         }
@@ -40,27 +47,21 @@ public class ChefPickup : MonoBehaviour
     void CogerIngrediente()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1.5f);
-
         foreach (Collider2D hit in hits)
         {
             if (hit.CompareTag("Ingrediente"))
             {
                 GameObject seleccionado = hit.gameObject;
+                GameObject clone;
 
                 if (!seleccionado.name.Contains("(Clone)"))
-                {
-                    GameObject clone = Instantiate(seleccionado);
-                    clone.transform.position = ingredienteEnMano.position;
-                    clone.transform.SetParent(ingredienteEnMano);
-                    ingredienteActual = clone;
-                }
+                    clone = Instantiate(seleccionado);
                 else
-                {
-                    seleccionado.transform.position = ingredienteEnMano.position;
-                    seleccionado.transform.SetParent(ingredienteEnMano);
-                    ingredienteActual = seleccionado;
-                }
+                    clone = seleccionado;
 
+                clone.transform.position = ingredienteEnMano.position;
+                clone.transform.SetParent(ingredienteEnMano);
+                ingredienteActual = clone;
                 break;
             }
         }
@@ -69,7 +70,9 @@ public class ChefPickup : MonoBehaviour
     void SoltarIngrediente()
     {
         ingredienteActual.transform.SetParent(null);
-        ingredienteActual.transform.position = new Vector3(transform.position.x, -8.6f, 0);
+        ingredienteActual.transform.position = new Vector3(
+            transform.position.x, -8.6f, 0
+        );
         ingredienteActual = null;
     }
 }

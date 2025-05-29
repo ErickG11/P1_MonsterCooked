@@ -149,7 +149,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "fondo minimalista para un juego similar a Overcooked pero con tem\xE1tica de monstruos, estilo inframundo, con un chef animado (1)_0": -7752763457589077138
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
